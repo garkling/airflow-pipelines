@@ -1,0 +1,18 @@
+services:
+  db:
+    hostname: database
+    container_name: database
+    image: postgres:15-alpine
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - ./airflow_db_init.sql:/docker-entrypoint-initdb.d/airflow_db_init.sql:ro
+      - db_data:/var/lib/postgresql
+
+    env_file:
+      - .env
+
+volumes:
+  db_data:
